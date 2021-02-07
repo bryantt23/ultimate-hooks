@@ -22,6 +22,13 @@ const useResource = baseUrl => {
   // ...
 
   const create = async newObject => {
+    console.log(newObject);
+    // const config = {
+    //   headers: { Authorization: token }
+    // };
+    const response = await axios.post(baseUrl, newObject);
+    getAll();
+    // return response.data;
     // const config = {
     //   headers: { Authorization: token }
     // };
@@ -29,22 +36,30 @@ const useResource = baseUrl => {
     // return response.data;
   };
 
+  // useEffect(() => {
+  //   async function getInfo() {
+  //     const request = await axios.get(baseUrl);
+  //     const response = await request.data;
+  //     console.log(response);
+  //     setResources(response);
+  //   }
+  //   getInfo();
+  // }, [baseUrl]);
+
   useEffect(() => {
-    async function getInfo() {
-      const request = await axios.get(baseUrl);
-      const response = await request.data;
-      console.log(response);
-      setResources(response);
-    }
-    getInfo();
+    getAll();
   }, [baseUrl]);
 
-  // const getAll = async () => {
-  // };
-  // getAll();
+  const getAll = async () => {
+    const request = await axios.get(baseUrl);
+    const response = await request.data;
+    console.log(response);
+    setResources(response);
+  };
 
   const service = {
-    create
+    create,
+    getAll
   };
 
   return [resources, service];
