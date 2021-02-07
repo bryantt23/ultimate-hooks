@@ -16,13 +16,32 @@ const useField = type => {
 };
 
 const useResource = baseUrl => {
+  console.log(baseUrl);
   const [resources, setResources] = useState([]);
 
   // ...
 
-  const create = resource => {
-    // ...
+  const create = async newObject => {
+    // const config = {
+    //   headers: { Authorization: token }
+    // };
+    // const response = await axios.post(baseUrl, newObject, config);
+    // return response.data;
   };
+
+  useEffect(() => {
+    async function getInfo() {
+      const request = await axios.get(baseUrl);
+      const response = await request.data;
+      console.log(response);
+      setResources(response);
+    }
+    getInfo();
+  }, [baseUrl]);
+
+  // const getAll = async () => {
+  // };
+  // getAll();
 
   const service = {
     create
